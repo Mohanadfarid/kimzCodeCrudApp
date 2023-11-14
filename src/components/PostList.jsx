@@ -1,20 +1,10 @@
-import {
-  Container,
-  Row,
-  Col,
-  Table,
-  Button,
-  ButtonGroup,
-} from "react-bootstrap";
-import Header from "./components/Header";
 
-function App() {
+import React from 'react'
+import { ButtonGroup, Table,Button } from 'react-bootstrap'
+
+export const PostList = () => {
   return (
-    <Container>
-      <Header />
-      <Row>
-        <Col xs={{ span: 8, offset: 2 }}>
-          <Table striped bordered hover>
+    <Table striped bordered hover>
             <thead>
               <tr>
                 <th>#</th>
@@ -35,10 +25,6 @@ function App() {
               </tr>
             </tbody>
           </Table>
-        </Col>
-      </Row>
-    </Container>
-  );
+  )
 }
-
-export default App;
+export default PostList

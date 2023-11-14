@@ -2,12 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { createBrowserRouter ,RouterProvider} from "react-router-dom";
+import { RootLayout } from "./Pages/RootLayout";
+import AddPost from "./Pages/AddPost"
+import EditPost from "./Pages/EditPost"
+import PostDetails from "./Pages/PostDetails";
+import Index from "./Pages/Index";
+const router = createBrowserRouter([
+  {path:"/",
+  element:<RootLayout/>,
+  children:[
+    {index:true,element:<Index/>},
+    {path:"post",element:<Index/>},
+    {path:"post/add",element:<AddPost/>},
+    {path:"post/:id",element:<PostDetails/>},
+    {path:"post/:id/edit",element:<EditPost/>},
 
-import App from "./App";
+  ]
+}
+])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+  <RouterProvider router={router}/>
   </React.StrictMode>
 );
