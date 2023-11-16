@@ -8,9 +8,11 @@ import AddPost from "./Pages/AddPost"
 import EditPost from "./Pages/EditPost"
 import PostDetails from "./Pages/PostDetails";
 import Index from "./Pages/Index";
+import ErrorPage from "./Pages/ErrorPage";
 const router = createBrowserRouter([
   {path:"/",
   element:<RootLayout/>,
+  errorElement:<ErrorPage/>,
   children:[
     {index:true,element:<Index/>},
     {path:"post",element:<Index/>},
