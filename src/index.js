@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import  store  from "./state/index";
+
 import { RootLayout } from "./Pages/RootLayout";
 import AddPost from "./Pages/AddPost";
 import EditPost from "./Pages/EditPost";
@@ -21,9 +24,12 @@ const router = createBrowserRouter([
       {
         path: "post/:id",
         element: <PostDetails />,
-        loader: ({params}) => {
-          if(isNaN(params.id)){
-            throw new Response("Bad Request", {statusText:"please make sure to insert correct post id",status:400})
+        loader: ({ params }) => {
+          if (isNaN(params.id)) {
+            throw new Response("Bad Request", {
+              statusText: "please make sure to insert correct post id",
+              status: 400,
+            });
           }
         },
       },
@@ -34,7 +40,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
 );
