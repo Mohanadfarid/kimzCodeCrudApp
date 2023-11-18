@@ -2,7 +2,7 @@
 import React from 'react'
 import { ButtonGroup, Table,Button } from 'react-bootstrap'
 
-export const PostList = () => {
+export const PostList = ({data}) => {
   return (
     <Table striped bordered hover>
             <thead>
