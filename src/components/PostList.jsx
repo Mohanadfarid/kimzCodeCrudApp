@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Table } from "react-bootstrap";
 import PostListitem from "./PostListitem";
 
-export const PostList = ({ data}) => {
+export const PostList = ({ data,deleteRecored}) => {
 
   
 
@@ -16,9 +16,9 @@ export const PostList = ({ data}) => {
         </tr>
       </thead>
       <tbody>
-      <PostListitem data={data}/>
+      <PostListitem data={data} deleteRecored={deleteRecored}/>
       </tbody>
     </Table>
   );
 };
-export default PostList;
+export default memo(PostList);
