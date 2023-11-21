@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
-const PostListitem = ({data,loading,error}) => {
+const PostListitem = ({data}) => {
 
     const recordes = data?.map((post) => {
         return (
@@ -20,13 +20,7 @@ const PostListitem = ({data,loading,error}) => {
 
     return (
         <>
-            {loading ? (
-          <td colSpan={3}>loading plz wait</td>
-        ) : error ? (
-          <td colSpan={3}>{error}</td>
-        ) : (
-          recordes
-        )}
+        {recordes}
         </>
     );
 }

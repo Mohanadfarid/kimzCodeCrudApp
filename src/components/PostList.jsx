@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "react-bootstrap";
 import PostListitem from "./PostListitem";
 
-export const PostList = ({ data, loading, error }) => {
+export const PostList = ({ data}) => {
 
   
 
@@ -16,7 +16,7 @@ export const PostList = ({ data, loading, error }) => {
         </tr>
       </thead>
       <tbody>
-      <PostListitem data={data} loading={loading} error={error}/>
+      <PostListitem data={data}/>
       </tbody>
     </Table>
   );
