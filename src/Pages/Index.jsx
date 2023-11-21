@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../state/postSlice";
 
 const Index = () => {
-  const posts = useSelector((state) => state.posts);
+  const {recordes,loading,error} = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Index = () => {
 
   return (
     <div>
-      <PostList data={posts} />
+      <PostList data={recordes} loading = {loading} error = {error}/>
     </div>
   );
 };
