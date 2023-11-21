@@ -1,22 +1,10 @@
 import React from "react";
-import { ButtonGroup, Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+import PostListitem from "./PostListitem";
 
 export const PostList = ({ data, loading, error }) => {
+
   
-  const recordes = data?.map((post) => {
-    return (
-      <tr key={post.id}>
-        <td>{post.id}</td>
-        <td>{post.title}</td>
-        <td>
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="success">Edit</Button>
-            <Button variant="danger">Delete</Button>
-          </ButtonGroup>
-        </td>
-      </tr>
-    );
-  });
 
   return (
     <Table striped bordered hover>
@@ -28,13 +16,7 @@ export const PostList = ({ data, loading, error }) => {
         </tr>
       </thead>
       <tbody>
-        {loading ? (
-          <td colSpan={3}>loading plz wait</td>
-        ) : error ? (
-          <td colSpan={3}>{error}</td>
-        ) : (
-          recordes
-        )}
+      <PostListitem data={data} loading={loading} error={error}/>
       </tbody>
     </Table>
   );
