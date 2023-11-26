@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { insertPost } from "../state/postSlice";
+import { useNavigate } from "react-router-dom";
 
 export const AddPost = () => {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const formHandler = (e) => {
     e.preventDefault();
     const id = Math.floor(Math.random()*500)
-    dispatch(insertPost({id,title,description}))
+    dispatch(insertPost({id,title,description})).unwrap().then(()=>{
+      navigate("/")
+    }).catch(error=>{
+      console.log(error)
+    })
   };
+
   return (
     <Form onSubmit={formHandler}>
       <FormGroup className="mb-3" controlId="exampleForm.ControlInput1">
