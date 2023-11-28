@@ -15,6 +15,12 @@
       "title": "test",
       "description": "test",
       "userId": 1
+    },
+    {
+      "id": 289,
+      "title": "this is 4th post",
+      "description": "this is the content for the 4th post\n",
+      "userId": 1
     }
   ]
 }
