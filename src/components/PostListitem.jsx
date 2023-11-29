@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const PostListitem = ({data,deleteRecored}) => {
 
@@ -12,8 +13,8 @@ const PostListitem = ({data,deleteRecored}) => {
     const recordes = data?.map((post) => {
         return (
           <tr key={post.id}>
-            <td>{post.id}</td>
-            <td>{post.title}</td>
+            <td># {post.id}</td>
+            <td><Link to={`post/${post.id}`}>{post.title}</Link></td>
             <td>
               <ButtonGroup aria-label="Basic example">
                 <Button variant="success">Edit</Button>

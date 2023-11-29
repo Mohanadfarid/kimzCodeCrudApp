@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { Table } from "react-bootstrap";
 import PostListitem from "./PostListitem";
+import { Link } from "react-router-dom";
 
 export const PostList = ({ data,deleteRecored}) => {
 
