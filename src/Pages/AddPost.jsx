@@ -5,11 +5,14 @@ import { insertPost } from "../state/postSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading"
 export const AddPost = () => {
+
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const{loading,error} = useSelector(state=>state.posts)
+
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  
   const formHandler = (e) => {
     e.preventDefault();
     const id = Math.floor(Math.random()*500)

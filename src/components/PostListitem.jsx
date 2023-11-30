@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PostListitem = ({data,deleteRecored}) => {
+const navigate = useNavigate();
 
   const deleteHandler = (post)=>{
     if (window.confirm(`Do you really want to delete post ${post.title}?`)){
@@ -17,7 +18,7 @@ const PostListitem = ({data,deleteRecored}) => {
             <td><Link to={`post/${post.id}`}>{post.title}</Link></td>
             <td>
               <ButtonGroup aria-label="Basic example">
-                <Button variant="success">Edit</Button>
+                <Button variant="success" onClick={()=>{navigate(`post/${post.id}/edit`)}}>Edit</Button>
                 <Button onClick={()=>deleteHandler(post)} variant="danger">Delete</Button>
               </ButtonGroup>
             </td>
