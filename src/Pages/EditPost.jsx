@@ -2,23 +2,41 @@ import React, { useEffect, useState } from "react";
 import usePostDetails from "../hooks/use-post-details.js";
 import Loading from "../components/Loading";
 import { Button, Form, FormGroup } from "react-bootstrap";
-
+import { useDispatch } from "react-redux";
+import { cleanRecord, edittPost } from "../state/postSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const EditPost = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error, record } = usePostDetails();
 
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
 
   useEffect(() => {
-    if(record && !title && !description){
-      settitle(record?.title)
-      setdescription(record?.description)
+    if (record) {
+      settitle(record?.title);
+      setdescription(record?.description);
     }
-  }, [record, title, description]);
+  }, [record]);
+
+  useEffect(() => {
+    return()=>{
+      dispatch(cleanRecord())
+    }
+  }, [dispatch]);
 
   const formHandler = (e) => {
     e.preventDefault();
+    dispatch(edittPost({ id: record.id, title, description }))
+      .unwrap()
+      .then(() => {
+        navigate(`/`);
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (

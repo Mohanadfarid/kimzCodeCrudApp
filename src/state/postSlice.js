@@ -70,17 +70,39 @@ export const insertPost = createAsyncThunk(
   }
 );
 
+export const edittPost = createAsyncThunk(
+  "posts/edittPost",
+  async (item, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await fetch(`http://localhost:5000/posts/${item.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(item),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    cleanRecord: (state) => {
+      state.record = null;
+    },
+  },
   extraReducers: (builder) => {
-
     //fetch post
     builder.addCase(fetchPost.pending, (state) => {
       state.loading = true;
       state.error = null;
-      state.record = null;
     });
     builder.addCase(fetchPost.fulfilled, (state, action) => {
       state.record = action.payload;
@@ -104,8 +126,8 @@ const postSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    //create post
 
+    //create post
     builder.addCase(insertPost.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -136,7 +158,20 @@ const postSlice = createSlice({
     });
 
     //edit post
+    builder.addCase(edittPost.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(edittPost.fulfilled, (state, action) => {
+      state.loading = false;
+      state.record = action.payload;
+    });
+    builder.addCase(edittPost.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
+export const {cleanRecord} = postSlice.actions
 export default postSlice.reducer;

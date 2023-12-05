@@ -19,7 +19,7 @@ export const AddPost = () => {
     dispatch(insertPost({id,title,description})).unwrap().then(()=>{
       navigate("/")
     }).catch(error=>{
-      console.log(error)
+      alert(error)
     })
   };
 
