@@ -12,6 +12,7 @@ import EditPost from "./Pages/EditPost";
 import PostDetails from "./Pages/PostDetails";
 import Index from "./Pages/Index";
 import ErrorPage from "./Pages/ErrorPage";
+import WithGuard from "./components/WithGuard";
 
 const postParamsHandler = ({ params }) => {
   if (isNaN(params.id)) {
@@ -30,7 +31,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: "post", element: <Index /> },
-      { path: "post/add", element: <AddPost /> },
+      {
+        path: "post/add",
+        element: (
+          <WithGuard>
+            <AddPost />
+          </WithGuard>
+        ),
+      },
       {
         path: "post/:id",
         element: <PostDetails />,
