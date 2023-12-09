@@ -3,24 +3,28 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { insertPost } from "../state/postSlice";
 import { useNavigate } from "react-router-dom";
-import Loading from "../components/Loading"
-export const AddPost = (props) => {
-console.log(props.title)
+import Loading from "../components/Loading";
+import WithGuard from "../util/withGuard";
+
+const AddPost = (props) => {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
-  const{loading,error} = useSelector(state=>state.posts)
+  const { loading, error } = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const formHandler = (e) => {
     e.preventDefault();
-    const id = Math.floor(Math.random()*500)
-    dispatch(insertPost({id,title,description})).unwrap().then(()=>{
-      navigate("/")
-    }).catch(error=>{
-      alert(error)
-    })
+    const id = Math.floor(Math.random() * 500);
+    dispatch(insertPost({ id, title, description }))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
@@ -53,4 +57,4 @@ console.log(props.title)
   );
 };
 
-export default AddPost;
+export default WithGuard(AddPost);

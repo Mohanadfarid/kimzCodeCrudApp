@@ -12,7 +12,7 @@ import EditPost from "./Pages/EditPost";
 import PostDetails from "./Pages/PostDetails";
 import Index from "./Pages/Index";
 import ErrorPage from "./Pages/ErrorPage";
-import WithGuard from "./components/WithGuard";
+// import WithGuard from "./components/WithGuard"; hoc approach 
 
 const postParamsHandler = ({ params }) => {
   if (isNaN(params.id)) {
@@ -34,9 +34,11 @@ const router = createBrowserRouter([
       {
         path: "post/add",
         element: (
-          <WithGuard>
+          // <WithGuard> 
+          // the commented section is the hoc approach
+          //we can use this approach or the hof inside the component it self
             <AddPost />
-          </WithGuard>
+          // </WithGuard>
         ),
       },
       {
