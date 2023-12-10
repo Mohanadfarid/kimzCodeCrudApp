@@ -5,7 +5,7 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { cleanRecord, edittPost } from "../state/postSlice.js";
 import { useNavigate } from "react-router-dom";
-
+import withGuard from "../util/withGuard.js"
 const EditPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,4 +71,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default  withGuard(EditPost);

@@ -1,12 +1,8 @@
 import React, { memo } from "react";
 import { Table } from "react-bootstrap";
 import PostListitem from "./PostListitem";
-import { Link } from "react-router-dom";
 
-export const PostList = ({ data,deleteRecored}) => {
-
-  
-
+export const PostList = ({ data, deleteRecored, isLoggedIn }) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -17,7 +13,11 @@ export const PostList = ({ data,deleteRecored}) => {
         </tr>
       </thead>
       <tbody>
-      <PostListitem data={data} deleteRecored={deleteRecored}/>
+        <PostListitem
+          data={data}
+          deleteRecored={deleteRecored}
+          isLoggedIn={isLoggedIn}
+        />
       </tbody>
     </Table>
   );
