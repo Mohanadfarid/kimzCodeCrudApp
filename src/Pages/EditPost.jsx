@@ -5,50 +5,62 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { cleanRecord, edittPost } from "../state/postSlice.js";
 import { useNavigate } from "react-router-dom";
-import withGuard from "../util/withGuard.js"
+import withGuard from "../util/withGuard.js";
+import { useFormik } from "formik";
+import { postSchema } from "../util/validationSchema.js";
+
 const EditPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error, record } = usePostDetails();
 
-  const [title, settitle] = useState("");
-  const [description, setdescription] = useState("");
+
 
   useEffect(() => {
-    if (record) {
-      settitle(record?.title);
-      setdescription(record?.description);
-    }
-  }, [record]);
-
-  useEffect(() => {
-    return()=>{
-      dispatch(cleanRecord())
-    }
+    return () => {
+      dispatch(cleanRecord());
+    };
   }, [dispatch]);
 
-  const formHandler = (e) => {
-    e.preventDefault();
-    dispatch(edittPost({ id: record.id, title, description }))
-      .unwrap()
-      .then(() => {
-        navigate(`/`);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
+  const formik = useFormik({
+    initialValues: {
+      title: record?record.title:"",
+      description: record?record.description:"",
+    },
+    enableReinitialize:true,
+    validationSchema: postSchema,
+    onSubmit: (values) => {
+      dispatch(
+        edittPost({
+          id: record.id,
+          title: values.title,
+          description: values.description,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          navigate(`/`);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    },
+  });
 
   return (
     <Loading>
-      <Form onSubmit={formHandler}>
+      <Form onSubmit={formik.handleSubmit}>
         <FormGroup className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
-            value={title}
-            onChange={(e) => settitle(e.target.value)}
+            name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            isInvalid={!!formik.errors.title}
           />
+          <Form.Control.Feedback>{formik.errors.title}</Form.Control.Feedback>
+          {formik.errors.title}
         </FormGroup>
 
         <FormGroup className="mb-3" controlId="exampleForm.ControlInput1">
@@ -56,9 +68,13 @@ const EditPost = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            value={description}
-            onChange={(e) => setdescription(e.target.value)}
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            isInvalid={!!formik.errors.title}
           />
+          <Form.Control.Feedback>{formik.errors.title}</Form.Control.Feedback>
+          {formik.errors.title}
         </FormGroup>
 
         <Loading loading={loading} error={error}>
@@ -71,4 +87,4 @@ const EditPost = () => {
   );
 };
 
-export default  withGuard(EditPost);
+export default withGuard(EditPost);

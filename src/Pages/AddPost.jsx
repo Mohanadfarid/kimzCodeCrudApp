@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import WithGuard from "../util/withGuard";
 import { useFormik } from "formik";
+import { postSchema } from "../util/validationSchema";
+
+
 
 
 const AddPost = (props) => {
   const { loading, error } = useSelector((state) => state.posts);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,8 +20,8 @@ const AddPost = (props) => {
       title: "",
       description: "",
     },
+    validationSchema: postSchema,
     onSubmit: (values) => {
-      console.log(values)
       const id = Math.floor(Math.random() * 500);
       dispatch(
         insertPost({ id, title: values.title, description: values.description })
@@ -33,7 +35,7 @@ const AddPost = (props) => {
         });
     },
   });
-
+console.log(formik.errors.title)
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormGroup className="mb-3" controlId="exampleForm.ControlInput1">
@@ -41,9 +43,12 @@ const AddPost = (props) => {
         <Form.Control
           type="text"
           name="title"
-          value={formik.title}
+          value={formik.values.title}
           onChange={formik.handleChange}
+          isInvalid={!!formik.errors.title}
         />
+        <Form.Control.Feedback>{formik.errors.title}</Form.Control.Feedback>
+        {formik.errors.title}
       </FormGroup>
 
       <FormGroup className="mb-3" controlId="exampleForm.ControlInput1">
@@ -52,9 +57,12 @@ const AddPost = (props) => {
           as="textarea"
           rows={3}
           name="description"
-          value={formik.description}
+          value={formik.values.description}
           onChange={formik.handleChange}
+          isInvalid={!!formik.errors.title}
         />
+        <Form.Control.Feedback>{formik.errors.description}</Form.Control.Feedback>
+        {formik.errors.description}
       </FormGroup>
 
       <Loading loading={loading} error={error}>
